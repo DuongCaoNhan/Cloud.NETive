@@ -1,11 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.5.0" />
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <IsAspireHost>true</IsAspireHost>
   </PropertyGroup>
-  <Sdk Name="Aspire.AppHost.Sdk" Version="13.1.1" />
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.1.1" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Apps\CloudNative.Web\CloudNative.Web.csproj" />
+    <ProjectReference Include="..\..\Services\WebApi\CloudNative.ApiService\CloudNative.ApiService.csproj" />
+    <ProjectReference Include="..\..\Gateways\CloudNative.Gateway\CloudNative.Gateway.csproj" />
+    <ProjectReference Include="..\..\Services\Monitoring\CloudNative.MonitoringService\CloudNative.MonitoringService.csproj" />
+    <ProjectReference Include="..\..\Services\Translation\CloudNative.TranslationApi\CloudNative.TranslationApi.csproj" />
+    <ProjectReference Include="..\..\Services\Accounting\CloudNative.AccountingService\CloudNative.AccountingService.API\CloudNative.AccountingService.API.csproj" />
+    <ProjectReference Include="..\..\Services\AI\CloudNative.AIService\CloudNative.AIService.API\CloudNative.AIService.API.csproj" />
+    <ProjectReference Include="..\..\Services\HR\CloudNative.HRService\CloudNative.HRService.API\CloudNative.HRService.API.csproj" />
+    <ProjectReference Include="..\..\Services\Inventory\CloudNative.InventoryService\CloudNative.InventoryService.API\CloudNative.InventoryService.API.csproj" />
+    <ProjectReference Include="..\..\Agents\CloudNative.Agent.Orchestrator\CloudNative.Agent.Orchestrator.csproj" />
   </ItemGroup>
 </Project>

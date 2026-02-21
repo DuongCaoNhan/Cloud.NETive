@@ -1,0 +1,38 @@
+@page "/"
+
+<PageTitle>Home — CloudNative</PageTitle>
+
+<div class="container py-4">
+    <h1>CloudNative</h1>
+    <p class="lead">.NET 10 + .NET Aspire microservices template</p>
+    <hr />
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">API Service</h5>
+                    <p class="card-text">Core REST API aggregator with Swagger/OpenAPI documentation.</p>
+                    <a href="/api/v1/info" class="btn btn-primary btn-sm" target="_blank">Open API</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Weather Sample</h5>
+                    <p class="card-text">Sample Blazor page fetching data from the API service.</p>
+                    <a href="weather" class="btn btn-secondary btn-sm">View Forecast</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Aspire Dashboard</h5>
+                    <p class="card-text">OpenTelemetry traces, metrics, and service health.</p>
+                    <a href="https://localhost:17026" class="btn btn-info btn-sm" target="_blank">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

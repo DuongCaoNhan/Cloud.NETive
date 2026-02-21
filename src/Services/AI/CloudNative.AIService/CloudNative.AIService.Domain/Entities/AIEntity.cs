@@ -1,0 +1,10 @@
+using CloudNative.Core.Entities;
+
+namespace CloudNative.AIService.Domain.Entities;
+
+public class AIItem : AuditableEntity
+{
+    public string Name        { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public bool   IsActive    { get; set; } = true;
+}

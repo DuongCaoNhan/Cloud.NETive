@@ -4,4 +4,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\CloudNative.ServiceDefaults\CloudNative.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\CloudNative.AccountingService.Application\CloudNative.AccountingService.Application.csproj" />
+    <ProjectReference Include="..\CloudNative.AccountingService.Infrastructure\CloudNative.AccountingService.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>

@@ -3,5 +3,15 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <NoWarn>$(NoWarn);NU1904</NoWarn>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.40.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\CloudNative.ServiceDefaults\CloudNative.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\CloudNative.AI.Abstractions\CloudNative.AI.Abstractions.csproj" />
+  </ItemGroup>
 </Project>

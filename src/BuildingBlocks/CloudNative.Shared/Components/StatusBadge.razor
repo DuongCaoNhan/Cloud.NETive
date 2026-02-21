@@ -1,0 +1,12 @@
+<span class="badge @CssClass">@Status</span>
+
+@code {
+    [Parameter, EditorRequired] public string Status  { get; set; } = "";
+    private string CssClass => Status.ToLowerInvariant() switch
+    {
+        "active"   or "running"  or "healthy" => "bg-success",
+        "inactive" or "stopped"  or "error"   => "bg-danger",
+        "pending"  or "starting" or "warning" => "bg-warning text-dark",
+        _ => "bg-secondary"
+    };
+}

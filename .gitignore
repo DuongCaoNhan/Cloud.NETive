@@ -1,0 +1,54 @@
+# .NET Core
+bin/
+obj/
+
+# Visual Studio
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET
+appsettings.json
+appsettings.*.json
+
+# Logs
+*.log
+
+# IDE Configurations
+*.idea/
+*.tsscache/
+*.swp
+
+# Build Results
+*.dll
+*.exe
+*.pdb
+*.cache
+*.ilk
+*.log
+*.vspscc
+*.vssscc
+
+# Publish Results
+.publish/
+
+# Others
+*.tmp
+*.bak
+*.swp
+*.orig
+*.rej
+*.manifest
+*.vsix
+*.nupkg
+*.map
+*.lock.json
+*.lock
+
+# Sensitive Files
+.env
+.env.*
+secrets.json

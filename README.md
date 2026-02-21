@@ -4,6 +4,74 @@ A ready-to-use **.NET 10 + .NET Aspire 13** solution template following **Clean 
 
 ---
 
+## Updated Solution Structure
+
+```
+DataNative/
+├── deploy/                                # Runtime artifacts (Docker, configs)
+│   ├── configs/                           # Shared app settings
+│   └── docker/                            # Docker Compose files
+├── docs/                                  # Documentation & guides
+├── ops/                                   # Operations (monitoring, logging)
+│   ├── monitoring/                        # Prometheus, Grafana configs
+│   └── logging/                           # Fluentbit, OTel configs
+├── provisioning/                          # IaC (Azure Bicep, AWS Terraform)
+├── scripts/                               # Database & deploy scripts
+├── src/
+│   ├── Orchestrator/
+│   │   └── CloudNative.AppHost/              # Aspire orchestrator & service discovery
+│   ├── Agents/
+│   │   └── CloudNative.Agent.Orchestrator/   # Semantic Kernel agent orchestration
+│   ├── Apps/
+│   │   ├── CloudNative.Web/                  # Blazor Server web application
+│   │   ├── CloudNative.MAUI/                 # Cross-platform MAUI Blazor Hybrid
+│   │   ├── CloudNative.WebCrawler/           # Hybrid web crawling pipeline
+│   │   └── CloudNative.BilingualTranslator/  # Chrome Extension (Manifest V3)
+│   ├── BuildingBlocks/
+│   │   ├── CloudNative.AI.Abstractions/      # AI/ML abstractions & interfaces
+│   │   ├── CloudNative.Core/                 # Domain models, core entities
+│   │   ├── CloudNative.Data/                 # EF Core, data persistence
+│   │   ├── CloudNative.Shared/               # Shared Blazor components
+│   │   ├── CloudNative.ServiceDefaults/      # Aspire shared configs
+│   │   ├── CloudNative.Messaging/            # Messaging abstractions
+│   │   ├── CloudNative.Storage/              # Storage abstractions
+│   │   ├── CloudNative.Utils/                # Utilities and helpers
+│   │   ├── CloudNative.EventBus/            # Event bus infrastructure
+│   │   └── CloudNative.IntegrationEventLogEF/ # Integration event logging
+│   ├── Gateways/
+│   │   └── CloudNative.Gateway/              # API Gateway (YARP reverse proxy)
+│   ├── Services/
+│   │   ├── WebApi/                        # Aggregator/BFF
+│   │   │   └── CloudNative.ApiService/       # Core REST API service
+│   │   ├── Translation/                   # Translation domain
+│   │   │   └── CloudNative.TranslationApi/   # Translation API service
+│   │   ├── Accounting/                    # Clean Architecture (API/Application/Domain/Infrastructure)
+│   │   ├── AI/                            # Clean Architecture (API/Application/Domain/Infrastructure)
+│   │   ├── HR/                            # Clean Architecture (API/Application/Domain/Infrastructure)
+│   │   ├── Inventory/                     # Clean Architecture (API/Application/Domain/Infrastructure)
+│   │   ├── Ingestion/                     # Data ingestion pipeline
+│   │   ├── Monitoring/
+│   │   │   └── CloudNative.MonitoringService/ # Observability & metrics
+│   │   └── Audit/                         # Audit trail service
+│   └── Infrastructure/
+│       └── Providers/
+│           ├── CloudNative.Infra.Azure/      # Azure cloud provider
+│           ├── CloudNative.Infra.AWS/        # AWS cloud provider
+│           ├── CloudNative.Infra.GCP/        # Google Cloud provider
+│           └── CloudNative.Infra.OnPremise/  # On-premise provider
+├── tests/                                 # Unit, integration, architecture tests
+│   ├── Architecture/                      # NetArchTest dependency rules
+│   ├── Unit/                              # xUnit unit tests
+│   └── Integration/                       # Integration tests
+├── tools/                                 # Dev utilities & automation
+│   ├── dev/                               # Developer tools (metrics, generators)
+│   ├── ops/                               # Operations tools (packages, security)
+│   └── migration/                         # One-off migration scripts
+└── CloudNative.slnx                          # Solution file (XML format)
+```
+
+---
+
 ## Quick Start
 
 ```powershell
@@ -19,99 +87,6 @@ dotnet build   CloudNative.slnx
 
 # 4. Run via Aspire AppHost
 dotnet run --project src/Orchestrator/CloudNative.AppHost
-```
-
----
-
-## Solution Structure
-
-```
-Template/
-├── CloudNative.slnx                   # Lightweight XML solution file (.NET SDK 17.x+)
-│
-├── src/
-│   ├── Orchestrator/                  # Aspire AppHost — single entry point for all services
-│   │   └── CloudNative.AppHost/
-│   │
-│   ├── BuildingBlocks/                # Shared libraries consumed by all services
-│   │   ├── CloudNative.ServiceDefaults/   # Aspire telemetry, health checks, service discovery
-│   │   ├── CloudNative.Core/              # Domain models, base entities, value objects
-│   │   ├── CloudNative.Shared/            # Shared Blazor UI components (Razor SDK)
-│   │   ├── CloudNative.Data/              # EF Core DbContext, repositories, migrations
-│   │   ├── CloudNative.Utils/             # Extension methods, helpers
-│   │   ├── CloudNative.Security/          # Auth abstractions, JWT helpers
-│   │   ├── CloudNative.Testing/           # Shared test utilities and base classes
-│   │   ├── CloudNative.AI.Abstractions/   # AI/ML provider interfaces
-│   │   ├── CloudNative.Messaging/         # Messaging contracts and abstractions
-│   │   ├── CloudNative.Storage/           # Blob/file storage abstractions
-│   │   ├── EventBus/                      # In-process and distributed event bus
-│   │   └── IntegrationEventLogEF/         # Outbox pattern with EF Core
-│   │
-│   ├── Apps/                          # Frontend and client applications
-│   │   ├── CloudNative.Web/               # Blazor Server
-│   │   ├── CloudNative.MAUI/              # MAUI Blazor Hybrid (Win/Android/iOS/macOS)
-│   │   └── CloudNative.WebCrawler/        # Web crawling pipeline API
-│   │
-│   ├── Gateways/                      # API Gateway / reverse proxy
-│   │   └── CloudNative.Gateway/           # YARP reverse proxy — single ingress point
-│   │
-│   ├── Services/                      # Microservices (one folder per domain)
-│   │   ├── WebApi/                        # REST aggregator / BFF
-│   │   ├── Translation/                   # Translation domain service
-│   │   ├── Data/                          # Data access service
-│   │   ├── Ingestion/                     # Data ingestion pipeline
-│   │   ├── Monitoring/                    # Observability and metrics service
-│   │   ├── Accounting/                    # Clean Architecture (API/Application/Domain/Infrastructure)
-│   │   ├── AI/                            # Clean Architecture (API/Application/Domain/Infrastructure)
-│   │   ├── HR/                            # Clean Architecture (API/Application/Domain/Infrastructure)
-│   │   └── Inventory/                     # Clean Architecture (API/Application/Domain/Infrastructure)
-│   │
-│   ├── Agents/                        # AI agent orchestration
-│   │   └── CloudNative.Agent.Orchestrator/  # Semantic Kernel agent workflows
-│   │
-│   └── Infrastructure/                # Cloud provider implementations
-│       └── Providers/
-│           ├── CloudNative.Infra.Azure/
-│           ├── CloudNative.Infra.AWS/
-│           ├── CloudNative.Infra.GCP/
-│           └── CloudNative.Infra.OnPremise/
-│
-├── tests/
-│   └── Architecture/
-│       └── CloudNative.ArchitectureTests/  # NetArchTest dependency rule validation
-│
-├── deploy/                            # Runtime artifacts
-│   ├── configs/                       # Shared appsettings, logging config
-│   └── docker/                        # Docker Compose files (compose/ and legacy/)
-│
-├── provisioning/                      # Infrastructure as Code
-│   ├── cloud/
-│   │   ├── azure/uat/                 # Azure Bicep templates
-│   │   └── aws/uat/                   # AWS Terraform
-│   └── onpremise/                     # On-premise Docker Compose
-│
-├── ops/                               # Operations configuration
-│   ├── monitoring/                    # Prometheus scrape config
-│   └── logging/                       # Fluent Bit config
-│
-├── scripts/                           # Automation scripts
-│   ├── build/                         # Build, validate, update solution structure
-│   ├── database/                      # EF Core migration runner
-│   └── deploy/                        # Azure deployment automation
-│
-└── tools/                             # Developer and ops tooling
-    ├── dev/
-    │   ├── code-metrics/              # Lines-of-code counter
-    │   ├── data-generator/            # Test data generation (CSV/Excel)
-    │   └── token-counter/             # LLM token cost estimator
-    ├── migration/
-    │   ├── project-rename/            # Namespace rename across solution
-    │   ├── service-migration/         # Migrate service to Clean Architecture
-    │   ├── upgrade/                   # .NET / Aspire version upgrade scripts
-    │   └── url-migration/             # Switch endpoint URLs between environments
-    └── ops/
-        ├── package-management/        # NuGet health check, security scan, OTel updater
-        └── security/                  # Sensitive info detector + git hooks
 ```
 
 ---
