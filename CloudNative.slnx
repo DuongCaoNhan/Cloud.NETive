@@ -1,0 +1,136 @@
+<Solution>
+  <!--
+    CloudNative.slnx
+    Format  : .slnx (lightweight XML solution, Visual Studio 17.x+)
+    Platform: .NET 10 | .NET Aspire 9.5.0
+    Projects: 44 stub .csproj files — CloudNative template structure
+    Note    : Paths are relative to this solution file (Template/)
+  -->
+
+  <!-- ══════════════════════════════════════════════════════
+       ORCHESTRATOR — Aspire AppHost (single entry point)
+       ══════════════════════════════════════════════════════ -->
+  <Folder Name="/Orchestrator/">
+    <Project Path="src/Orchestrator/CloudNative.AppHost/CloudNative.AppHost.csproj" />
+  </Folder>
+
+  <!-- ══════════════════════════════════════════════════════
+       BUILDING BLOCKS — Shared libraries and abstractions
+       ══════════════════════════════════════════════════════ -->
+  <Folder Name="/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/CloudNative.ServiceDefaults/CloudNative.ServiceDefaults.csproj" />
+    <Project Path="src/BuildingBlocks/CloudNative.Core/CloudNative.Core.csproj" />
+    <Project Path="src/BuildingBlocks/CloudNative.Shared/CloudNative.Shared.csproj" />
+    <Project Path="src/BuildingBlocks/CloudNative.Data/CloudNative.Data.csproj" />
+    <Project Path="src/BuildingBlocks/CloudNative.Utils/CloudNative.Utils.csproj" />
+    <Project Path="src/BuildingBlocks/CloudNative.Security/CloudNative.Security.csproj" />
+    <Project Path="src/BuildingBlocks/CloudNative.Testing/CloudNative.Testing.csproj" />
+    <Project Path="src/BuildingBlocks/CloudNative.AI.Abstractions/CloudNative.AI.Abstractions.csproj" />
+    <Project Path="src/BuildingBlocks/CloudNative.Messaging/CloudNative.Messaging.csproj" />
+    <Project Path="src/BuildingBlocks/CloudNative.Storage/CloudNative.Storage.csproj" />
+    <Project Path="src/BuildingBlocks/EventBus/CloudNative.BuildingBlocks.EventBus.csproj" />
+    <Project Path="src/BuildingBlocks/IntegrationEventLogEF/CloudNative.BuildingBlocks.IntegrationEventLogEF.csproj" />
+  </Folder>
+
+  <!-- ══════════════════════════════════════════════════════
+       APPS — Frontend and client applications
+       ══════════════════════════════════════════════════════ -->
+  <Folder Name="/Apps/">
+    <Project Path="src/Apps/CloudNative.Web/CloudNative.Web.csproj" />
+    <Project Path="src/Apps/CloudNative.MAUI/CloudNative.MAUI.csproj" />
+    <Project Path="src/Apps/CloudNative.WebCrawler/CloudNative.WebCrawler.csproj" />
+  </Folder>
+
+  <!-- ══════════════════════════════════════════════════════
+       GATEWAYS — API Gateway / YARP reverse proxy
+       ══════════════════════════════════════════════════════ -->
+  <Folder Name="/Gateways/">
+    <Project Path="src/Gateways/CloudNative.Gateway/CloudNative.Gateway.csproj" />
+  </Folder>
+
+  <!-- ══════════════════════════════════════════════════════
+       SERVICES — Microservices
+       ══════════════════════════════════════════════════════ -->
+
+  <!-- REST aggregator / BFF -->
+  <Folder Name="/Services/WebApi/">
+    <Project Path="src/Services/WebApi/CloudNative.ApiService/CloudNative.ApiService.csproj" />
+  </Folder>
+
+  <!-- Translation domain service -->
+  <Folder Name="/Services/Translation/">
+    <Project Path="src/Services/Translation/CloudNative.TranslationApi/CloudNative.TranslationApi.csproj" />
+  </Folder>
+
+  <!-- Data access service (EF Core / repositories) -->
+  <Folder Name="/Services/Data/">
+    <Project Path="src/Services/Data/CloudNative.DataService/CloudNative.DataService.csproj" />
+  </Folder>
+
+  <!-- Data ingestion pipeline -->
+  <Folder Name="/Services/Ingestion/">
+    <Project Path="src/Services/Ingestion/CloudNative.DataIngestionService/CloudNative.DataIngestionService.csproj" />
+  </Folder>
+
+  <!-- Observability, metrics, and health monitoring -->
+  <Folder Name="/Services/Monitoring/">
+    <Project Path="src/Services/Monitoring/CloudNative.MonitoringService/CloudNative.MonitoringService.csproj" />
+  </Folder>
+
+  <!-- Accounting domain — Clean Architecture (API / Application / Domain / Infrastructure) -->
+  <Folder Name="/Services/Accounting/">
+    <Project Path="src/Services/Accounting/CloudNative.AccountingService/CloudNative.AccountingService.API/CloudNative.AccountingService.API.csproj" />
+    <Project Path="src/Services/Accounting/CloudNative.AccountingService/CloudNative.AccountingService.Application/CloudNative.AccountingService.Application.csproj" />
+    <Project Path="src/Services/Accounting/CloudNative.AccountingService/CloudNative.AccountingService.Domain/CloudNative.AccountingService.Domain.csproj" />
+    <Project Path="src/Services/Accounting/CloudNative.AccountingService/CloudNative.AccountingService.Infrastructure/CloudNative.AccountingService.Infrastructure.csproj" />
+  </Folder>
+
+  <!-- AI/ML domain — Clean Architecture (API / Application / Domain / Infrastructure) -->
+  <Folder Name="/Services/AI/">
+    <Project Path="src/Services/AI/CloudNative.AIService/CloudNative.AIService.API/CloudNative.AIService.API.csproj" />
+    <Project Path="src/Services/AI/CloudNative.AIService/CloudNative.AIService.Application/CloudNative.AIService.Application.csproj" />
+    <Project Path="src/Services/AI/CloudNative.AIService/CloudNative.AIService.Domain/CloudNative.AIService.Domain.csproj" />
+    <Project Path="src/Services/AI/CloudNative.AIService/CloudNative.AIService.Infrastructure/CloudNative.AIService.Infrastructure.csproj" />
+  </Folder>
+
+  <!-- HR domain — Clean Architecture (API / Application / Domain / Infrastructure) -->
+  <Folder Name="/Services/HR/">
+    <Project Path="src/Services/HR/CloudNative.HRService/CloudNative.HRService.API/CloudNative.HRService.API.csproj" />
+    <Project Path="src/Services/HR/CloudNative.HRService/CloudNative.HRService.Application/CloudNative.HRService.Application.csproj" />
+    <Project Path="src/Services/HR/CloudNative.HRService/CloudNative.HRService.Domain/CloudNative.HRService.Domain.csproj" />
+    <Project Path="src/Services/HR/CloudNative.HRService/CloudNative.HRService.Infrastructure/CloudNative.HRService.Infrastructure.csproj" />
+  </Folder>
+
+  <!-- Inventory domain — Clean Architecture (API / Application / Domain / Infrastructure) -->
+  <Folder Name="/Services/Inventory/">
+    <Project Path="src/Services/Inventory/CloudNative.InventoryService/CloudNative.InventoryService.API/CloudNative.InventoryService.API.csproj" />
+    <Project Path="src/Services/Inventory/CloudNative.InventoryService/CloudNative.InventoryService.Application/CloudNative.InventoryService.Application.csproj" />
+    <Project Path="src/Services/Inventory/CloudNative.InventoryService/CloudNative.InventoryService.Domain/CloudNative.InventoryService.Domain.csproj" />
+    <Project Path="src/Services/Inventory/CloudNative.InventoryService/CloudNative.InventoryService.Infrastructure/CloudNative.InventoryService.Infrastructure.csproj" />
+  </Folder>
+
+  <!-- ══════════════════════════════════════════════════════
+       AGENTS — Semantic Kernel / AI agent orchestration
+       ══════════════════════════════════════════════════════ -->
+  <Folder Name="/Agents/">
+    <Project Path="src/Agents/CloudNative.Agent.Orchestrator/CloudNative.Agent.Orchestrator.csproj" />
+  </Folder>
+
+  <!-- ══════════════════════════════════════════════════════
+       INFRASTRUCTURE — Multi-cloud provider implementations
+       ══════════════════════════════════════════════════════ -->
+  <Folder Name="/Infrastructure/">
+    <Project Path="src/Infrastructure/Providers/CloudNative.Infra.Azure/CloudNative.Infra.Azure.csproj" />
+    <Project Path="src/Infrastructure/Providers/CloudNative.Infra.AWS/CloudNative.Infra.AWS.csproj" />
+    <Project Path="src/Infrastructure/Providers/CloudNative.Infra.GCP/CloudNative.Infra.GCP.csproj" />
+    <Project Path="src/Infrastructure/Providers/CloudNative.Infra.OnPremise/CloudNative.Infra.OnPremise.csproj" />
+  </Folder>
+
+  <!-- ══════════════════════════════════════════════════════
+       TESTS
+       ══════════════════════════════════════════════════════ -->
+  <Folder Name="/Tests/Architecture/">
+    <Project Path="tests/Architecture/CloudNative.ArchitectureTests/CloudNative.ArchitectureTests.csproj" />
+  </Folder>
+
+</Solution>
