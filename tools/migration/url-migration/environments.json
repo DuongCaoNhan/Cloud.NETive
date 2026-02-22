@@ -1,0 +1,4 @@
+{
+  "development": { "apiUrl": "https://localhost:7001", "webUrl": "https://localhost:7000" },
+  "uat": { "apiUrl": "https://api.uat.cloudnative.app", "webUrl": "https://uat.cloudnative.app" }
+}

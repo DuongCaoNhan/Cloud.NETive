@@ -1,0 +1,3 @@
+#!/bin/sh
+# Run sensitive info check before commit
+python tools/ops/security/sensitive_info_detector.py
