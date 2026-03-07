@@ -7,10 +7,10 @@ public class AccountingDbContext(DbContextOptions<AccountingDbContext> options) 
 {
     public DbSet<AccountingItem> Items => Set<AccountingItem>();
 
-    protected override void OnModelCreating(ModelBuilder b)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        b.HasDefaultSchema("accounting");
-        b.Entity<AccountingItem>().HasKey(e => e.Id);
-        b.Entity<AccountingItem>().Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.HasDefaultSchema("accounting");
+        // Picks up all IEntityTypeConfiguration<T> classes in this assembly automatically
+        builder.ApplyConfigurationsFromAssembly(typeof(AccountingDbContext).Assembly);
     }
 }

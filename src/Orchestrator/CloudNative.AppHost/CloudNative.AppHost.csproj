@@ -12,14 +12,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Apps\CloudNative.Web\CloudNative.Web.csproj" />
-    <ProjectReference Include="..\..\Services\WebApi\CloudNative.ApiService\CloudNative.ApiService.csproj" />
     <ProjectReference Include="..\..\Gateways\CloudNative.Gateway\CloudNative.Gateway.csproj" />
-    <ProjectReference Include="..\..\Services\Monitoring\CloudNative.MonitoringService\CloudNative.MonitoringService.csproj" />
     <ProjectReference Include="..\..\Services\Translation\CloudNative.TranslationApi\CloudNative.TranslationApi.csproj" />
     <ProjectReference Include="..\..\Services\Accounting\CloudNative.AccountingService\CloudNative.AccountingService.API\CloudNative.AccountingService.API.csproj" />
     <ProjectReference Include="..\..\Services\AI\CloudNative.AIService\CloudNative.AIService.API\CloudNative.AIService.API.csproj" />
-    <ProjectReference Include="..\..\Services\HR\CloudNative.HRService\CloudNative.HRService.API\CloudNative.HRService.API.csproj" />
-    <ProjectReference Include="..\..\Services\Inventory\CloudNative.InventoryService\CloudNative.InventoryService.API\CloudNative.InventoryService.API.csproj" />
     <ProjectReference Include="..\..\Agents\CloudNative.Agent.Orchestrator\CloudNative.Agent.Orchestrator.csproj" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\CloudNative.AIService.Domain\CloudNative.AIService.Domain.csproj" />
-    <ProjectReference Include="..\..\..\..\..\BuildingBlocks\CloudNative.Core\CloudNative.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\CloudNative.Core\CloudNative.Core.csproj" />
   </ItemGroup>
 </Project>

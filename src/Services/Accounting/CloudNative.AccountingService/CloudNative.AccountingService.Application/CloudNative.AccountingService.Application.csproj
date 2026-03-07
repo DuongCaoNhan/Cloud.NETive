@@ -5,7 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CloudNative.AccountingService.Domain\CloudNative.AccountingService.Domain.csproj" />
-    <ProjectReference Include="..\..\..\..\..\BuildingBlocks\CloudNative.Core\CloudNative.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\CloudNative.Core\CloudNative.Core.csproj" />
   </ItemGroup>
 </Project>

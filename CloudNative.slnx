@@ -52,32 +52,12 @@
        SERVICES — Microservices
        ══════════════════════════════════════════════════════ -->
 
-  <!-- REST aggregator / BFF -->
-  <Folder Name="/Services/WebApi/">
-    <Project Path="src/Services/WebApi/CloudNative.ApiService/CloudNative.ApiService.csproj" />
-  </Folder>
-
-  <!-- Translation domain service -->
+  <!-- Translation — Minimal API (no DDD, contrast sample) -->
   <Folder Name="/Services/Translation/">
     <Project Path="src/Services/Translation/CloudNative.TranslationApi/CloudNative.TranslationApi.csproj" />
   </Folder>
 
-  <!-- Data access service (EF Core / repositories) -->
-  <Folder Name="/Services/Data/">
-    <Project Path="src/Services/Data/CloudNative.DataService/CloudNative.DataService.csproj" />
-  </Folder>
-
-  <!-- Data ingestion pipeline -->
-  <Folder Name="/Services/Ingestion/">
-    <Project Path="src/Services/Ingestion/CloudNative.DataIngestionService/CloudNative.DataIngestionService.csproj" />
-  </Folder>
-
-  <!-- Observability, metrics, and health monitoring -->
-  <Folder Name="/Services/Monitoring/">
-    <Project Path="src/Services/Monitoring/CloudNative.MonitoringService/CloudNative.MonitoringService.csproj" />
-  </Folder>
-
-  <!-- Accounting domain — Clean Architecture (API / Application / Domain / Infrastructure) -->
+  <!-- Accounting — Pure DDD (Clean Architecture: API / Application / Domain / Infrastructure) -->
   <Folder Name="/Services/Accounting/">
     <Project Path="src/Services/Accounting/CloudNative.AccountingService/CloudNative.AccountingService.API/CloudNative.AccountingService.API.csproj" />
     <Project Path="src/Services/Accounting/CloudNative.AccountingService/CloudNative.AccountingService.Application/CloudNative.AccountingService.Application.csproj" />
@@ -85,28 +65,12 @@
     <Project Path="src/Services/Accounting/CloudNative.AccountingService/CloudNative.AccountingService.Infrastructure/CloudNative.AccountingService.Infrastructure.csproj" />
   </Folder>
 
-  <!-- AI/ML domain — Clean Architecture (API / Application / Domain / Infrastructure) -->
+  <!-- AI/ML — Pragmatic DDD (Clean Architecture: API / Application / Domain / Infrastructure) -->
   <Folder Name="/Services/AI/">
     <Project Path="src/Services/AI/CloudNative.AIService/CloudNative.AIService.API/CloudNative.AIService.API.csproj" />
     <Project Path="src/Services/AI/CloudNative.AIService/CloudNative.AIService.Application/CloudNative.AIService.Application.csproj" />
     <Project Path="src/Services/AI/CloudNative.AIService/CloudNative.AIService.Domain/CloudNative.AIService.Domain.csproj" />
     <Project Path="src/Services/AI/CloudNative.AIService/CloudNative.AIService.Infrastructure/CloudNative.AIService.Infrastructure.csproj" />
-  </Folder>
-
-  <!-- HR domain — Clean Architecture (API / Application / Domain / Infrastructure) -->
-  <Folder Name="/Services/HR/">
-    <Project Path="src/Services/HR/CloudNative.HRService/CloudNative.HRService.API/CloudNative.HRService.API.csproj" />
-    <Project Path="src/Services/HR/CloudNative.HRService/CloudNative.HRService.Application/CloudNative.HRService.Application.csproj" />
-    <Project Path="src/Services/HR/CloudNative.HRService/CloudNative.HRService.Domain/CloudNative.HRService.Domain.csproj" />
-    <Project Path="src/Services/HR/CloudNative.HRService/CloudNative.HRService.Infrastructure/CloudNative.HRService.Infrastructure.csproj" />
-  </Folder>
-
-  <!-- Inventory domain — Clean Architecture (API / Application / Domain / Infrastructure) -->
-  <Folder Name="/Services/Inventory/">
-    <Project Path="src/Services/Inventory/CloudNative.InventoryService/CloudNative.InventoryService.API/CloudNative.InventoryService.API.csproj" />
-    <Project Path="src/Services/Inventory/CloudNative.InventoryService/CloudNative.InventoryService.Application/CloudNative.InventoryService.Application.csproj" />
-    <Project Path="src/Services/Inventory/CloudNative.InventoryService/CloudNative.InventoryService.Domain/CloudNative.InventoryService.Domain.csproj" />
-    <Project Path="src/Services/Inventory/CloudNative.InventoryService/CloudNative.InventoryService.Infrastructure/CloudNative.InventoryService.Infrastructure.csproj" />
   </Folder>
 
   <!-- ══════════════════════════════════════════════════════
