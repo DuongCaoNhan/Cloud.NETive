@@ -5,9 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+    <!-- EF Core 10.x for .NET 10 -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <!-- Infrastructure implements Application interfaces + uses Domain entities -->
     <ProjectReference Include="..\CloudNative.AIService.Application\CloudNative.AIService.Application.csproj" />
+    <ProjectReference Include="..\CloudNative.AIService.Domain\CloudNative.AIService.Domain.csproj" />
   </ItemGroup>
 </Project>

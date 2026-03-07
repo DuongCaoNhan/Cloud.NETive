@@ -7,10 +7,11 @@ public class AIDbContext(DbContextOptions<AIDbContext> options) : DbContext(opti
 {
     public DbSet<AIItem> Items => Set<AIItem>();
 
-    protected override void OnModelCreating(ModelBuilder b)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        b.HasDefaultSchema("ai");
-        b.Entity<AIItem>().HasKey(e => e.Id);
-        b.Entity<AIItem>().Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.HasDefaultSchema("ai");
+        // Picks up AIItemConfiguration automatically
+        builder.ApplyConfigurationsFromAssembly(typeof(AIDbContext).Assembly);
     }
 }
+
