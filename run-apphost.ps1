@@ -26,8 +26,10 @@ if ($procs) {
 # Change to AppHost directory
 Set-Location -Path "$PSScriptRoot\src\Orchestrator\CloudNative.AppHost"
 
-# Set environment variable and run with HTTP profile
+# Set environment variables and run with HTTP profile
+$env:ASPNETCORE_URLS = "http://localhost:15002"
 $env:ASPIRE_ALLOW_UNSECURED_TRANSPORT = "true"
+$env:ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL = "http://localhost:15003"
 Write-Host "Starting AppHost..." -ForegroundColor Green
 dotnet run --launch-profile http
 
