@@ -106,7 +106,7 @@ dotnet run --project src/Orchestrator/CloudNative.AppHost
 
 | Layer | Pattern | Notes |
 |-------|---------|-------|
-| Orchestration | .NET Aspire 9.5 AppHost | Service discovery, dashboard, health monitoring |
+| Orchestration | .NET Aspire 13.1.2 AppHost | Service discovery, dashboard, health monitoring |
 | API Gateway | YARP reverse proxy | Single ingress, routes to all downstream services |
 | **Accounting** | Pure DDD + Clean Architecture | API → MediatR → Application → Domain → Infrastructure |
 | **AI** | Pragmatic DDD + Minimal API | Minimal APIs inject DbContext/Services directly, vector search |
@@ -180,7 +180,7 @@ Program.cs      Single file: endpoint + records + mock provider
 | Concern | Technology |
 |---------|-----------|
 | Runtime | .NET 10 |
-| Orchestration | .NET Aspire 9.5 |
+| Orchestration | .NET Aspire 13.1.2 |
 | Web UI | Blazor Server |
 | Mobile / Desktop | MAUI Blazor Hybrid |
 | API Gateway | YARP |
