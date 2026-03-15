@@ -69,9 +69,17 @@ public static class Extensions
         return builder;
     }
 
+    /// <summary>Adds the global exception-handling middleware as the outermost pipeline layer.</summary>
+    public static WebApplication UseGlobalExceptionHandler(this WebApplication app)
+    {
+        app.UseMiddleware<GlobalExceptionMiddleware>();
+        return app;
+    }
+
     /// <summary>Maps /health, /health/ready, /health/live, and /alive endpoints.</summary>
     public static WebApplication MapDefaultEndpoints(this WebApplication app)
     {
+        app.UseGlobalExceptionHandler();
         app.MapHealthChecks("/health");
         app.MapHealthChecks("/health/ready", new HealthCheckOptions
         {
