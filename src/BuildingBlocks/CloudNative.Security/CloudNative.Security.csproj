@@ -15,11 +15,5 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
     <!-- JWT token creation & validation -->
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.9.0" />
-    <!-- DI abstractions for IServiceCollection extensions -->
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
-    <!-- Options pattern (IOptions<T>) -->
-    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.0" />
-    <!-- Logging abstractions (ILogger<T>) -->
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
   </ItemGroup>
 </Project>
