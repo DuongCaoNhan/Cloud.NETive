@@ -1,93 +1,26 @@
-# CloudNative Solution Template
+# Cloud.NETive
 
-A ready-to-use **.NET 10 + .NET Aspire 13** solution template demonstrating three levels of **Domain-Driven Design** applied to cloud-native microservices.
+A production-ready **.NET 10 + .NET Aspire 13** solution template demonstrating three levels of **Domain-Driven Design** across cloud-native microservices — from zero layers to strict Clean Architecture.
 
 ---
 
-## DDD Sample Services
+## DDD Spectrum
 
 | Service | Pattern | Description |
 |---------|---------|-------------|
-| `CloudNative.AccountingService` | **Pure DDD** | Strict Clean Architecture: private setters, Value Objects (`Money`), Domain Events, MediatR CQRS, FluentValidation pipeline |
-| `CloudNative.AIService` | **Pragmatic DDD** | Flat structure: Minimal APIs, direct DbContext injection, Rich Model lite, vector embedding with SQL Server 2025 support |
-| `CloudNative.TranslationApi` | **No DDD (Minimal API)** | Single `Program.cs`, no layers — illustrates when DDD is overkill |
+| `CloudNative.TranslationApi` | **No DDD** | Single `Program.cs`, no layers — illustrates when DDD is overkill |
+| `CloudNative.AIService` | **Pragmatic DDD** | Minimal APIs, direct DbContext, Rich Model lite, vector embedding (SQL Server 2025) |
+| `CloudNative.AccountingService` | **Pure DDD** | Private setters, Value Objects (`Money`), Domain Events, MediatR CQRS, FluentValidation pipeline |
 
-> These three services form a spectrum: **No DDD → Pragmatic DDD → Pure DDD** — showing when to apply each approach.
-
----
-
-## Solution Structure
-
-```
-CloudNative/
-├── deploy/                                # Runtime artifacts (Docker, configs)
-│   ├── configs/                           # Shared app settings
-│   └── docker/                            # Docker Compose files
-├── docs/                                  # Documentation & guides
-├── ops/                                   # Operations (monitoring, logging)
-│   ├── monitoring/                        # Prometheus, Grafana configs
-│   └── logging/                           # Fluentbit, OTel configs
-├── provisioning/                          # IaC (Azure Bicep, AWS Terraform)
-├── scripts/                               # Database & deploy scripts
-├── src/
-│   ├── Orchestrator/
-│   │   └── CloudNative.AppHost/              # Aspire orchestrator & service discovery
-│   ├── Agents/
-│   │   └── CloudNative.Agent.Orchestrator/   # Semantic Kernel agent orchestration
-│   ├── Apps/
-│   │   ├── CloudNative.Web/                  # Blazor Server web application
-│   │   └── CloudNative.MAUI/                 # Cross-platform MAUI Blazor Hybrid
-│   ├── BuildingBlocks/
-│   │   ├── CloudNative.AI.Abstractions/      # AI/ML abstractions & interfaces
-│   │   ├── CloudNative.Core/                 # Domain models, core entities
-│   │   ├── CloudNative.ServiceDefaults/      # Aspire shared configs
-│   │   ├── CloudNative.Shared/               # Shared Blazor components
-│   │   ├── CloudNative.Messaging/            # Messaging abstractions
-│   │   ├── CloudNative.Storage/              # Storage abstractions
-│   │   ├── CloudNative.Security/             # Security abstractions
-│   │   ├── CloudNative.Utils/                # Utilities and helpers
-│   │   ├── CloudNative.EventBus/             # Event bus infrastructure
-│   │   └── CloudNative.IntegrationEventLogEF/ # Integration event logging
-│   ├── Gateways/
-│   │   └── CloudNative.Gateway/              # API Gateway (YARP reverse proxy)
-│   ├── Services/
-│   │   ├── Translation/                      # ★ No DDD — Minimal API flat structure
-│   │   │   └── CloudNative.TranslationApi/
-│   │   ├── Accounting/                       # ★ Pure DDD — CQRS + MediatR + Value Objects
-│   │   │   └── CloudNative.AccountingService/
-│   │   │       ├── .API/                     #   Controllers → MediatR only
-│   │   │       ├── .Application/             #   Commands / Queries / DTOs / Validators
-│   │   │       ├── .Domain/                  #   Entities, Value Objects, Domain Events
-│   │   │       └── .Infrastructure/          #   EF Core, Repository impl
-│   │   └── AI/                               # ★ Pragmatic DDD — Minimal APIs + direct DbContext
-│   │       └── CloudNative.AIService/
-│   │           ├── .API/                     #   Minimal API endpoints (Apis/, Extensions/)
-│   │           ├── .Application/             #   Model/ DTOs + Service interfaces (mixed)
-│   │           ├── .Domain/                  #   Rich Model lite (some public setters)
-│   │           └── .Infrastructure/          #   EF Core, vector embedding service
-│   └── Infrastructure/
-│       └── Providers/
-│           ├── CloudNative.Infra.Azure/      # Azure cloud provider
-│           ├── CloudNative.Infra.AWS/        # AWS cloud provider
-│           ├── CloudNative.Infra.GCP/        # Google Cloud provider
-│           └── CloudNative.Infra.OnPremise/  # On-premise provider
-├── tests/
-│   └── Architecture/
-│       └── CloudNative.ArchitectureTests/    # NetArchTest dependency rules
-├── tools/
-│   ├── dev/                               # Developer tools (metrics, generators)
-│   ├── ops/                               # Operations tools (packages, security)
-│   └── migration/                         # One-off migration scripts
-└── CloudNative.slnx                       # Solution file (XML format)
-```
+> The three services form a deliberate spectrum: **No DDD → Pragmatic DDD → Pure DDD** — choose the right weight for each domain.
 
 ---
 
 ## Quick Start
 
 ```powershell
-# 1. Copy template to a new location
-cp -r CloudNative/ ../MyNewSolution/
+# 1. Clone or copy the template
+git clone https://github.com/your-org/Cloud.NETive.git
 
 # 2. Rename namespace throughout (CloudNative → YourProduct)
 .\tools\migration\project-rename\rename-project.ps1 -OldName "CloudNative" -NewName "YourProduct"
@@ -100,78 +33,176 @@ dotnet build   CloudNative.slnx
 dotnet run --project src/Orchestrator/CloudNative.AppHost
 ```
 
+Aspire dashboard: `https://localhost:17052`
+
 ---
 
-## Architecture Patterns
+## Solution Structure
 
-| Layer | Pattern | Notes |
-|-------|---------|-------|
-| Orchestration | .NET Aspire 13.1.2 AppHost | Service discovery, dashboard, health monitoring |
-| API Gateway | YARP reverse proxy | Single ingress, routes to all downstream services |
-| **Accounting** | Pure DDD + Clean Architecture | API → MediatR → Application → Domain → Infrastructure |
-| **AI** | Pragmatic DDD + Minimal API | Minimal APIs inject DbContext/Services directly, vector search |
-| **Translation** | Flat Minimal API | No layers — single Program.cs, proxy/utility pattern |
-| Frontend | Blazor Server + MAUI Hybrid | Shared component library |
-| AI Agents | Semantic Kernel | Microsoft Agent Framework, multi-provider |
-| Observability | OpenTelemetry + Prometheus | Traces, metrics, structured logs |
-| Infrastructure | Multi-cloud providers | Azure / AWS / GCP / On-Premise |
+```
+Cloud.NETive/
+├── deploy/
+│   ├── configs/                           # Shared appsettings (logging, etc.)
+│   └── docker/                            # Docker Compose files
+├── ops/
+│   ├── monitoring/                        # Prometheus, Grafana configs
+│   └── logging/                           # Fluentbit, OTel Collector configs
+├── provisioning/
+│   ├── cloud/azure/                       # Azure Bicep IaC
+│   └── cloud/aws/                         # AWS Terraform IaC
+├── scripts/
+│   ├── build/                             # Build & validation scripts
+│   ├── database/                          # EF Core migration scripts
+│   └── deploy/                            # Azure deployment scripts
+├── src/
+│   ├── Orchestrator/
+│   │   └── CloudNative.AppHost/           # .NET Aspire orchestrator & service discovery
+│   ├── Agents/
+│   │   └── CloudNative.Agent.Orchestrator/ # Semantic Kernel agent orchestration
+│   ├── Apps/
+│   │   ├── CloudNative.Web/               # Blazor Server web application
+│   │   ├── CloudNative.MAUI/              # Cross-platform MAUI Blazor Hybrid
+│   │   └── CloudNative.WebCrawler/        # Hybrid web crawling pipeline
+│   ├── BuildingBlocks/
+│   │   ├── CloudNative.AI.Abstractions/   # IAIService, IEmbeddingService interfaces
+│   │   ├── CloudNative.Core/              # Base entities, domain interfaces, shared models
+│   │   ├── CloudNative.Data/              # EF Core base DbContext, data persistence helpers
+│   │   ├── CloudNative.Security/          # JWT auth, RBAC, AES-256 encryption abstractions
+│   │   ├── CloudNative.Messaging/         # Messaging abstractions
+│   │   ├── CloudNative.Storage/           # Storage abstractions
+│   │   ├── CloudNative.Shared/            # Shared Blazor components
+│   │   ├── CloudNative.ServiceDefaults/   # Aspire shared config (OTel, health checks, Serilog)
+│   │   ├── CloudNative.Utils/             # Utilities and helpers
+│   │   ├── CloudNative.Testing/           # Test helpers and base classes
+│   │   ├── EventBus/                      # Event bus infrastructure
+│   │   └── IntegrationEventLogEF/         # Transactional outbox (EF Core)
+│   ├── Gateways/
+│   │   └── CloudNative.Gateway/           # API Gateway (YARP reverse proxy)
+│   ├── Services/
+│   │   ├── Translation/
+│   │   │   └── CloudNative.TranslationApi/            # ★ No DDD — flat Minimal API
+│   │   ├── Accounting/
+│   │   │   └── CloudNative.AccountingService/
+│   │   │       ├── CloudNative.AccountingService.API/           # Controllers → IMediator only
+│   │   │       ├── CloudNative.AccountingService.Application/   # Commands, Queries, DTOs, Validators
+│   │   │       ├── CloudNative.AccountingService.Domain/        # Entities, Value Objects, Events
+│   │   │       └── CloudNative.AccountingService.Infrastructure/ # EF Core, Repository impl
+│   │   ├── AI/
+│   │   │   └── CloudNative.AIService/
+│   │   │       ├── CloudNative.AIService.API/           # Minimal API endpoints
+│   │   │       ├── CloudNative.AIService.Application/   # DTOs + service interfaces
+│   │   │       ├── CloudNative.AIService.Domain/        # Rich Model lite entities
+│   │   │       └── CloudNative.AIService.Infrastructure/ # EF Core, vector embedding
+│   │   └── Inventory/
+│   │       └── CloudNative.InventoryService/
+│   │           └── CloudNative.InventoryService.Application/
+│   └── Infrastructure/
+│       └── Providers/
+│           ├── CloudNative.Infra.Azure/   # Azure cloud provider
+│           ├── CloudNative.Infra.AWS/     # AWS cloud provider
+│           ├── CloudNative.Infra.GCP/     # Google Cloud provider
+│           └── CloudNative.Infra.OnPremise/ # On-premise provider
+├── tests/
+│   └── Architecture/
+│       └── CloudNative.ArchitectureTests/ # NetArchTest layer dependency rules
+├── tools/
+│   ├── dev/                               # Code metrics, data generators, token counters
+│   ├── ops/                               # Package management, security scanning
+│   └── migration/                         # Project rename, service migration scripts
+└── CloudNative.slnx                       # Solution file (XML format)
+```
+
+---
+
+## Aspire Service Graph
+
+Services registered in `CloudNative.AppHost`:
+
+```
+WebFrontend (Blazor)
+    └── Gateway (YARP)
+            ├── TranslationApi
+            ├── AccountingService
+            └── AIService
+
+Agent.Orchestrator
+    └── AIService
+
+(All services expose /health and are wired into the Aspire dashboard)
+```
 
 ---
 
 ## DDD Pattern Comparison
 
-### Pure DDD — `CloudNative.AccountingService`
+### No DDD — `CloudNative.TranslationApi`
 
 ```
-Domain/
-  Entities/     private setters, factory method, business methods
-  ValueObjects/ Money (immutable, equality by value)
-  Events/       IDomainEvent, AccountingItemCreatedDomainEvent
-  Exceptions/   AccountingDomainException
-  Repositories/ IAccountingRepository (interface only)
-
-Application/
-  Commands/     CreateAccountingItemCommand + Handler + Validator
-  Queries/      GetAccountingItemQuery + Handler
-  Behaviours/   ValidationBehavior (MediatR pipeline)
-  DTOs/         AccountingItemDto — API never sees Entities
-
-Infrastructure/
-  Persistence/  EF Core DbContext, IEntityTypeConfiguration, Repository impl
-
-API/
-  Controllers/  AccountingController — calls IMediator only, no DbContext
+Program.cs      Single file: endpoints + records + mock translation provider
+                Use when: proxy / utility / thin wrapper — no real business logic
 ```
 
 ### Pragmatic DDD — `CloudNative.AIService`
 
 ```
 Domain/
-  Entities/     public setters for scalars, private for state (IsActive, Embedding)
-                factory + business methods (UpdateEmbedding, Activate/Deactivate)
+  Entities/     public setters for scalars; private for state (IsActive, Embedding)
+                factory methods + business methods (UpdateEmbedding, Activate/Deactivate)
 
-Application/    "Model/" — DTOs + Interfaces co-exist (no strict separation)
-  Model/        AIItemDto, request records, mapping extensions — all in one file
+Application/
+  Model/        AIItemDto, request records, mapping extensions
   Services/     IAIEmbeddingService interface
 
 Infrastructure/
-  Persistence/  EF Core DbContext, vector(384) config + JSON fallback
-  Services/     AIEmbeddingService (mock → swap for Azure OpenAI / Ollama)
+  Persistence/  EF Core DbContext, vector(384) column config + JSON fallback
+  Services/     AIEmbeddingService (mock — swap for Azure OpenAI / Ollama)
 
 API/
-  GlobalUsings.cs          common namespaces in one file
   Extensions/              AddApplicationServices(), MapAIEndpoints()
-  Apis/AIItemsApi.cs       CRUD — inject AIDbContext + IAIEmbeddingService directly
+  Apis/AIItemsApi.cs       CRUD — inject DbContext + IAIEmbeddingService directly
   Apis/AISearchApi.cs      POST /semantic — cosine similarity search
   Program.cs               3 lines
 ```
 
-### No DDD — `CloudNative.TranslationApi`
+### Pure DDD — `CloudNative.AccountingService`
 
 ```
-Program.cs      Single file: endpoint + records + mock provider
-                Use when: proxy/utility, no business logic, thin wrapper
+Domain/
+  Entities/     Private setters, factory methods, business invariants enforced in entity
+  ValueObjects/ Money (immutable, structural equality)
+  Events/       IDomainEvent, AccountingItemCreatedDomainEvent
+  Exceptions/   AccountingDomainException
+  Repositories/ IAccountingRepository (interface only — no EF references)
+
+Application/
+  Commands/     CreateAccountingItemCommand + Handler (MediatR)
+  Queries/      GetAccountingItemQuery + Handler
+  Behaviours/   ValidationBehavior (FluentValidation MediatR pipeline)
+  DTOs/         AccountingItemDto — API layer never touches Domain Entities
+
+Infrastructure/
+  Persistence/  EF Core DbContext, IEntityTypeConfiguration, Repository implementation
+
+API/
+  Controllers/  AccountingController — calls IMediator only, zero business logic
 ```
+
+---
+
+## Architecture Overview
+
+| Layer | Technology | Notes |
+|-------|-----------|-------|
+| Orchestration | .NET Aspire 13 | Service discovery, dashboard, health monitoring |
+| API Gateway | YARP | Single ingress, routes to all downstream services |
+| Pure DDD | Clean Architecture + MediatR | Accounting — enforced layer isolation via NetArchTest |
+| Pragmatic DDD | Minimal API + EF Core | AI — direct injection, fewer abstractions |
+| No DDD | Single `Program.cs` | Translation — zero overhead for utility services |
+| Frontend | Blazor Server + MAUI Hybrid | Shared `CloudNative.Shared` component library |
+| AI Agents | Semantic Kernel | Multi-provider: Azure AI Foundry / Ollama / ONNX |
+| Security | JWT Bearer + AES-256 | `CloudNative.Security` building block |
+| Observability | OpenTelemetry + Prometheus | Traces, metrics, structured logs via `ServiceDefaults` |
+| Infrastructure | Multi-cloud providers | Azure / AWS / GCP / On-Premise |
 
 ---
 
@@ -180,38 +211,58 @@ Program.cs      Single file: endpoint + records + mock provider
 | Concern | Technology |
 |---------|-----------|
 | Runtime | .NET 10 |
-| Orchestration | .NET Aspire 13.1.2 |
+| Orchestration | .NET Aspire 13 |
 | Web UI | Blazor Server |
 | Mobile / Desktop | MAUI Blazor Hybrid |
 | API Gateway | YARP |
 | ORM | Entity Framework Core 10 |
-| CQRS | MediatR 12 (Accounting) |
-| Validation | FluentValidation 11 (Accounting) |
+| CQRS | MediatR 12 |
+| Validation | FluentValidation 11 |
 | AI orchestration | Semantic Kernel |
 | Logging | Serilog 10 |
 | Telemetry | OpenTelemetry 1.14 |
 | API Docs | Swashbuckle 10 (OpenApi 2.x) |
-| Testing | xUnit + NetArchTest |
-| IaC | Azure Bicep + AWS Terraform |
+| Architecture tests | NetArchTest |
+| Unit tests | xUnit |
+| IaC | Azure Bicep · AWS Terraform |
 | Containers | Docker Compose |
+
+---
+
+## Building Blocks
+
+| Project | Purpose |
+|---------|---------|
+| `CloudNative.ServiceDefaults` | Registers OpenTelemetry, Serilog, health checks — added to every service |
+| `CloudNative.Core` | `BaseEntity`, domain interfaces, shared value types |
+| `CloudNative.Data` | EF Core base `DbContext`, soft-delete, audit fields |
+| `CloudNative.Security` | `ITokenService` (JWT), `IPermissionService` (RBAC), `IEncryptionService` (AES-256) |
+| `CloudNative.AI.Abstractions` | `IAIService`, `IEmbeddingService` |
+| `CloudNative.Messaging` | Messaging provider abstraction |
+| `CloudNative.Storage` | Blob/file storage abstraction |
+| `CloudNative.EventBus` | Event bus (publish / subscribe) infrastructure |
+| `IntegrationEventLogEF` | Transactional outbox pattern for EF Core |
+| `CloudNative.Shared` | Blazor shared components (layout, nav, etc.) |
+| `CloudNative.Utils` | Cross-cutting helpers and extensions |
+| `CloudNative.Testing` | Base test classes and test data builders |
 
 ---
 
 ## Naming Convention
 
-All projects follow the pattern: `{ProductName}.{Layer}.{Domain?}.{Sublayer?}`
+All projects follow: `CloudNative.{Domain?}.{Layer?}`
 
-| Example | Description |
+| Project | Description |
 |---------|-------------|
 | `CloudNative.AppHost` | Aspire orchestrator |
 | `CloudNative.ServiceDefaults` | Shared Aspire configuration |
-| `CloudNative.AccountingService.API` | Accounting — Presentation layer (Pure DDD) |
-| `CloudNative.AccountingService.Domain` | Accounting — Domain layer (Pure DDD) |
-| `CloudNative.AIService.API` | AI — Presentation layer (Pragmatic DDD) |
-| `CloudNative.TranslationApi` | Translation — Flat Minimal API (No DDD) |
-| `CloudNative.Infra.Azure` | Azure provider implementation |
+| `CloudNative.AccountingService.API` | Accounting — presentation layer (Pure DDD) |
+| `CloudNative.AccountingService.Domain` | Accounting — domain layer (Pure DDD) |
+| `CloudNative.AIService.API` | AI — presentation layer (Pragmatic DDD) |
+| `CloudNative.TranslationApi` | Translation — flat Minimal API (No DDD) |
+| `CloudNative.Infra.Azure` | Azure infrastructure provider |
 
-To rename `CloudNative` to your product name:
+To rename `CloudNative` to your own product name:
 
 ```powershell
 .\tools\migration\project-rename\rename-project.ps1 -OldName "CloudNative" -NewName "Contoso"
@@ -219,29 +270,21 @@ To rename `CloudNative` to your product name:
 
 ---
 
-## Key Scripts
-
-| Script | Purpose |
-|--------|---------|
-| `scripts/build/build-all.ps1` | Build entire solution |
-| `scripts/build/validate-solution-structure.ps1` | Verify all projects are wired up |
-| `scripts/database/migrate.ps1` | Run EF Core database migrations |
-| `scripts/deploy/deploy-azure.ps1` | Deploy to Azure Container Apps |
-| `tools/ops/package-management/security-scan.ps1` | Scan NuGet packages for CVEs |
-| `tools/ops/package-management/package-health-check.ps1` | Check for outdated packages |
-
----
-
 ## Environment Configuration
 
-Service control is driven by `appsettings.json` in the AppHost:
+Service control is driven by `AppHost/appsettings.json`:
 
 ```json
 {
   "Services": {
-    "EnableTranslationApi":    true,
-    "EnableAccountingService": true,
-    "EnableAIService":         true
+    "EnableTranslationApi":     true,
+    "EnableAccountingService":  true,
+    "EnableAIService":          true,
+    "EnableInventoryService":   true,
+    "EnableAgentOrchestrator":  true,
+    "EnableMonitoringService":  true,
+    "EnableGateway":            true,
+    "EnableWebService":         true
   }
 }
 ```
@@ -253,143 +296,10 @@ $env:Services__EnableAIService = "false"
 dotnet run --project src/Orchestrator/CloudNative.AppHost
 ```
 
-
-```
-DataNative/
-├── deploy/                                # Runtime artifacts (Docker, configs)
-│   ├── configs/                           # Shared app settings
-│   └── docker/                            # Docker Compose files
-├── docs/                                  # Documentation & guides
-├── ops/                                   # Operations (monitoring, logging)
-│   ├── monitoring/                        # Prometheus, Grafana configs
-│   └── logging/                           # Fluentbit, OTel configs
-├── provisioning/                          # IaC (Azure Bicep, AWS Terraform)
-├── scripts/                               # Database & deploy scripts
-├── src/
-│   ├── Orchestrator/
-│   │   └── CloudNative.AppHost/              # Aspire orchestrator & service discovery
-│   ├── Agents/
-│   │   └── CloudNative.Agent.Orchestrator/   # Semantic Kernel agent orchestration
-│   ├── Apps/
-│   │   ├── CloudNative.Web/                  # Blazor Server web application
-│   │   ├── CloudNative.MAUI/                 # Cross-platform MAUI Blazor Hybrid
-│   │   ├── CloudNative.WebCrawler/           # Hybrid web crawling pipeline
-│   │   └── CloudNative.BilingualTranslator/  # Chrome Extension (Manifest V3)
-│   ├── BuildingBlocks/
-│   │   ├── CloudNative.AI.Abstractions/      # AI/ML abstractions & interfaces
-│   │   ├── CloudNative.Core/                 # Domain models, core entities
-│   │   ├── CloudNative.Data/                 # EF Core, data persistence
-│   │   ├── CloudNative.Shared/               # Shared Blazor components
-│   │   ├── CloudNative.ServiceDefaults/      # Aspire shared configs
-│   │   ├── CloudNative.Messaging/            # Messaging abstractions
-│   │   ├── CloudNative.Storage/              # Storage abstractions
-│   │   ├── CloudNative.Utils/                # Utilities and helpers
-│   │   ├── CloudNative.EventBus/            # Event bus infrastructure
-│   │   └── CloudNative.IntegrationEventLogEF/ # Integration event logging
-│   ├── Gateways/
-│   │   └── CloudNative.Gateway/              # API Gateway (YARP reverse proxy)
-│   ├── Services/
-│   │   ├── WebApi/                        # Aggregator/BFF
-│   │   │   └── CloudNative.ApiService/       # Core REST API service
-│   │   ├── Translation/                   # Translation domain
-│   │   │   └── CloudNative.TranslationApi/   # Translation API service
-│   │   ├── Accounting/                    # Clean Architecture (API/Application/Domain/Infrastructure)
-│   │   ├── AI/                            # Clean Architecture (API/Application/Domain/Infrastructure)
-│   │   ├── HR/                            # Clean Architecture (API/Application/Domain/Infrastructure)
-│   │   ├── Inventory/                     # Clean Architecture (API/Application/Domain/Infrastructure)
-│   │   ├── Ingestion/                     # Data ingestion pipeline
-│   │   ├── Monitoring/
-│   │   │   └── CloudNative.MonitoringService/ # Observability & metrics
-│   │   └── Audit/                         # Audit trail service
-│   └── Infrastructure/
-│       └── Providers/
-│           ├── CloudNative.Infra.Azure/      # Azure cloud provider
-│           ├── CloudNative.Infra.AWS/        # AWS cloud provider
-│           ├── CloudNative.Infra.GCP/        # Google Cloud provider
-│           └── CloudNative.Infra.OnPremise/  # On-premise provider
-├── tests/                                 # Unit, integration, architecture tests
-│   ├── Architecture/                      # NetArchTest dependency rules
-│   ├── Unit/                              # xUnit unit tests
-│   └── Integration/                       # Integration tests
-├── tools/                                 # Dev utilities & automation
-│   ├── dev/                               # Developer tools (metrics, generators)
-│   ├── ops/                               # Operations tools (packages, security)
-│   └── migration/                         # One-off migration scripts
-└── CloudNative.slnx                          # Solution file (XML format)
-```
-
----
-
-## Quick Start
+Or via command-line argument:
 
 ```powershell
-# 1. Copy template to a new location
-cp -r Template/ ../MyNewSolution/
-
-# 2. Rename namespace throughout (CloudNative → YourProduct)
-.\tools\migration\project-rename\rename-project.ps1 -OldName "CloudNative" -NewName "YourProduct"
-
-# 3. Restore & build
-dotnet restore CloudNative.slnx
-dotnet build   CloudNative.slnx
-
-# 4. Run via Aspire AppHost
-dotnet run --project src/Orchestrator/CloudNative.AppHost
-```
-
----
-
-## Architecture Patterns
-
-| Layer | Pattern | Notes |
-|-------|---------|-------|
-| Orchestration | .NET Aspire 13.1.1 AppHost | Service discovery, dashboard, health monitoring |
-| API Gateway | YARP reverse proxy | Single ingress, route to downstream services |
-| Domain Services | Clean Architecture | API → Application → Domain → Infrastructure |
-| Frontend | Blazor Server + MAUI Hybrid | Shared component library |
-| AI | Semantic Kernel agents | Microsoft Agent Framework, multi-provider |
-| Messaging | Event bus + outbox | Transactional message publishing |
-| Observability | OpenTelemetry + Prometheus | Traces, metrics, structured logs |
-| Infrastructure | Multi-cloud providers | Azure / AWS / GCP / On-Premise |
-
----
-
-## Technology Stack
-
-| Concern | Technology |
-|---------|-----------|
-| Runtime | .NET 10 |
-| Orchestration | .NET Aspire 13.1.1 |
-| Web UI | Blazor Server |
-| Mobile / Desktop | MAUI Blazor Hybrid |
-| API Gateway | YARP |
-| ORM | Entity Framework Core 10 |
-| AI orchestration | Semantic Kernel |
-| Logging | Serilog 10 |
-| Telemetry | OpenTelemetry 1.14 |
-| API Docs | Swashbuckle 10 (OpenApi 2.x) |
-| Testing | xUnit + NetArchTest |
-| IaC | Azure Bicep + AWS Terraform |
-| Containers | Docker Compose |
-
----
-
-## Naming Convention
-
-All projects follow the pattern: `{ProductName}.{Layer}.{Domain?}.{Sublayer?}`
-
-| Example | Description |
-|---------|-------------|
-| `CloudNative.AppHost` | Aspire orchestrator |
-| `CloudNative.ServiceDefaults` | Shared Aspire configuration |
-| `CloudNative.AccountingService.API` | Accounting — API layer |
-| `CloudNative.AccountingService.Domain` | Accounting — Domain layer |
-| `CloudNative.Infra.Azure` | Azure provider implementation |
-
-To rename `CloudNative` to your product name:
-
-```powershell
-.\tools\migration\project-rename\rename-project.ps1 -OldName "CloudNative" -NewName "Contoso"
+dotnet run --project src/Orchestrator/CloudNative.AppHost -- --Services:EnableAIService=false
 ```
 
 ---
@@ -399,31 +309,9 @@ To rename `CloudNative` to your product name:
 | Script | Purpose |
 |--------|---------|
 | `scripts/build/build-all.ps1` | Build entire solution |
-| `scripts/build/validate-solution-structure.ps1` | Verify all projects are wired up |
+| `scripts/build/validate-solution-structure.ps1` | Verify all projects are wired in the solution |
 | `scripts/database/migrate.ps1` | Run EF Core database migrations |
 | `scripts/deploy/deploy-azure.ps1` | Deploy to Azure Container Apps |
 | `tools/ops/package-management/security-scan.ps1` | Scan NuGet packages for CVEs |
 | `tools/ops/package-management/package-health-check.ps1` | Check for outdated packages |
-
----
-
-## Environment Configuration
-
-Service control is driven by `appsettings.json` in the AppHost:
-
-```json
-{
-  "Services": {
-    "EnableApiService": true,
-    "EnableWebService": true,
-    "EnableGateway": true
-  }
-}
-```
-
-Or via environment variables:
-
-```powershell
-$env:Services__EnableApiService = "false"
-dotnet run --project src/Orchestrator/CloudNative.AppHost
-```
+| `tools/ops/package-management/update-opentelemetry.ps1` | Fix NU1603 OTel version warnings |

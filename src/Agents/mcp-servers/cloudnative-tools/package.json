@@ -1,0 +1,19 @@
+{
+  "name": "cloudnative-tools",
+  "version": "1.0.0",
+  "description": "MCP server exposing Cloud.NETive development tools",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "ts-node": "^10.0.0",
+    "@types/node": "^22.0.0"
+  }
+}
